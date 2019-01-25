@@ -1,7 +1,23 @@
 # CiscoRV320Dump
 CVE-2019-1653/CVE-2019-1652 Exploits For Dumping Cisco RV320 Configurations and getting RCE
 
-Implementations of the CVE-2019-1652 and CVE-2019-1653 exploits disclosed by Red Team Pentesting GmbH.
+Implementations of the CVE-2019-1652 and CVE-2019-1653 exploits disclosed by [Red Team Pentesting GmbH](http://www.redteam-pentesting.de).
+
+I only tested these on an RV320, but according to the [Cisco advisory](https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-20190123-rv-info), the RV325 is also vulnerable.
+
+The following [Shodan](https://shodan.io) queries appear to find them, if you are curious about how many are out there. There seems to be quite a few...  
+[ssl:RV320](https://www.shodan.io/search?query=ssl%3ARV320)  
+[ssl:RV325](https://www.shodan.io/search?query=ssl%3ARV325)  
+[port:161 RV325](https://www.shodan.io/search?query=port%3A161+RV325)  
+[port:161 RV320](https://www.shodan.io/search?query=port%3A161+RV320)  
+
+The vulnerabilities allow for the following:
+* Dumping (Plaintext) Configuration File! (includes hashes for the webUI!)
+* Dumping (Encrypted) Diagnostic/Debug Files! (including config, and the /etc and /var directories)
+* Decrypting the encrypted Diagnostic/Debug Files! (yes, you get /etc/shadow!)
+* Post-Authentication Remote Command Injection as root in the webUI!
+
+As an aside, the default creds are cisco:cisco.
 
 ## Exploits...
 
